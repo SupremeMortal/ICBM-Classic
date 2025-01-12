@@ -1,15 +1,16 @@
 package icbm.classic.content.missile.logic.flight;
 
 import com.builtbroken.mc.testing.junit.TestManager;
-import icbm.classic.content.missile.logic.targeting.BasicTargetData;
-import net.minecraft.world.World;
+import icbm.classic.world.missile.logic.flight.DirectFlightLogic;
+import icbm.classic.world.missile.logic.targeting.BasicTargetingModel;
+import net.minecraft.world.level.Level;
 import org.junit.jupiter.api.*;
 
 class DirectFlightLogicTest
 {
     static TestManager testManager = new TestManager("missile", Assertions::fail);
 
-    final World world = testManager.getWorld();
+    final Level level = testManager.getLevel();
 
     @AfterAll
     public static void afterAllTests()
@@ -27,10 +28,10 @@ class DirectFlightLogicTest
     void testEquals_sameMotion_true()
     {
         final DirectFlightLogic objA = new DirectFlightLogic();
-        objA.calculateFlightPath(world, 100, 100, 100, new BasicTargetData(200, 110, 120));
+        objA.calculateFlightPath(world, 100, 100, 100, new BasicTargetingModel(200, 110, 120));
 
         final DirectFlightLogic objB = new DirectFlightLogic();
-        objB.calculateFlightPath(world, 100, 100, 100, new BasicTargetData(200, 110, 120));
+        objB.calculateFlightPath(world, 100, 100, 100, new BasicTargetingModel(200, 110, 120));
 
         Assertions.assertEquals(objA, objB);
     }
@@ -39,10 +40,10 @@ class DirectFlightLogicTest
     void testEquals_diffMotion_false()
     {
         final DirectFlightLogic objA = new DirectFlightLogic();
-        objA.calculateFlightPath(world, 100, 100, 100, new BasicTargetData(200, 110, 120));
+        objA.calculateFlightPath(world, 100, 100, 100, new BasicTargetingModel(200, 110, 120));
 
         final DirectFlightLogic objB = new DirectFlightLogic();
-        objB.calculateFlightPath(world, 200, 100, 100, new BasicTargetData(200, 110, 120));
+        objB.calculateFlightPath(world, 200, 100, 100, new BasicTargetingModel(200, 110, 120));
 
         Assertions.assertNotEquals(objA, objB);
     }

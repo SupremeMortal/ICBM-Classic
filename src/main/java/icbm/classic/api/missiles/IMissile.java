@@ -3,9 +3,9 @@ package icbm.classic.api.missiles;
 
 import icbm.classic.api.data.IWorldPosition;
 import icbm.classic.api.missiles.cause.IMissileSource;
-import icbm.classic.api.missiles.parts.IMissileFlightLogic;
-import icbm.classic.api.missiles.parts.IMissileTarget;
-import net.minecraft.entity.Entity;
+import icbm.classic.api.missiles.parts.MissileFlightLogic;
+import icbm.classic.api.missiles.parts.MissileTargetingModel;
+import net.minecraft.world.entity.Entity;
 
 /**
  * Capability added to entities to define them as missiles
@@ -32,15 +32,16 @@ public interface IMissile extends IWorldPosition // TODO add registry and requir
      *
      * @param data defining the target and any specialized impact settings
      */
-    void setTargetData(IMissileTarget data);
+    void setTargetData(MissileTargetingModel data);
 
-    IMissileTarget getTargetData();
+    MissileTargetingModel getTargetData();
 
     /**
      * Sets the flight logic to use for the missile
+     *
      * @param logic to use
      */
-    void setFlightLogic(IMissileFlightLogic logic);
+    void setFlightLogic(MissileFlightLogic logic);
 
     /**
      * Called to switch the flight logic to a new logic or next step
@@ -48,21 +49,22 @@ public interface IMissile extends IWorldPosition // TODO add registry and requir
      *
      * @param logic to use
      */
-    default void switchFlightLogic(IMissileFlightLogic logic) {
+    default void switchFlightLogic(MissileFlightLogic logic) {
         setFlightLogic(logic);
     }
 
-    IMissileFlightLogic getFlightLogic();
+    MissileFlightLogic getFlightLogic();
 
     /**
      * Sets the missile source information
+     *
      * @param source
      */
     void setMissileSource(IMissileSource source);
 
     /**
      * Gets the missile source
-     *
+     * <p>
      * Should not be exposed to the player
      *
      * @return source
@@ -71,10 +73,10 @@ public interface IMissile extends IWorldPosition // TODO add registry and requir
 
     /**
      * Tells the missile to start motion
-     *
+     * <p>
      * This will trigger flight logic to run calculation and lock in start conditions.
      * After which the entity will start moving and handle any updates as required.
-     *
+     * <p>
      * Once launched don't expect the flight logic or other systems to allow modifications.
      */
     void launch();

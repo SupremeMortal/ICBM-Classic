@@ -12,7 +12,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -42,11 +42,11 @@ dependencies {
     implementation("net.neoforged:neoforge:$neo_version")
 
     // https://projectlombok.org/setup/gradle
-    compileOnly("org.projectlombok:lombok:1.18.24")
-    annotationProcessor("org.projectlombok:lombok:1.18.24")
+    compileOnly("org.projectlombok:lombok:1.18.36")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
 
-    testCompileOnly("org.projectlombok:lombok:1.18.24")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
+    testCompileOnly("org.projectlombok:lombok:1.18.36")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.36")
 
     //Mods
     implementation(files("libs/NBT-Exporter-1.0-forgelib.jar"))
@@ -82,10 +82,10 @@ minecraft {
             systemProperty("forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP")
             systemProperty("forge.logging.console.level", "debug")
         }
-        register("client") {
+        named("client") {
             workingDirectory(project.file("run/client"))
         }
-        register("server") {
+        named("server") {
             workingDirectory(project.file("run/server"))
         }
     }

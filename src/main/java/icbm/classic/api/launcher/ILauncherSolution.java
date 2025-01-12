@@ -1,6 +1,6 @@
 package icbm.classic.api.launcher;
 
-import icbm.classic.api.missiles.parts.IMissileTarget;
+import icbm.classic.api.missiles.parts.MissileTargetingModel;
 
 /**
  * Firing solution to provide target and additional settings
@@ -9,7 +9,7 @@ public interface ILauncherSolution {
 
     /**
      * Target data to feed into the missile during launch
-     *
+     * <p>
      * This may be called several times for the same launcher. Ensure
      * that it produces the same results each call. If randomization
      * is used, store the randomization on solution creation.
@@ -17,7 +17,7 @@ public interface ILauncherSolution {
      * @param launcher to allow selectively applying target
      * @return target data to use
      */
-    IMissileTarget getTarget(IMissileLauncher launcher);
+    MissileTargetingModel getTarget(IMissileLauncher launcher);
 
     /**
      * Number of missiles to fire, used for multi-launchers
